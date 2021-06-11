@@ -1,7 +1,3 @@
-"""
-A rudimentary URL downloader (like wget or curl) to demonstrate Rich progress bars.
-"""
-
 import os.path
 import sys
 from concurrent.futures import as_completed, ThreadPoolExecutor
