@@ -1,3 +1,7 @@
+"""
+A rudimentary URL downloader (like wget or curl) to demonstrate Rich progress bars.
+"""
+
 import os.path
 import sys
 from concurrent.futures import as_completed, ThreadPoolExecutor
@@ -67,13 +71,19 @@ def download(urls: Iterable[str], dest_dir: str):
                 task_id = progress.add_task("download", filename=filename, contenttype=contenttype, start=False)
                 pool.submit(copy_url, task_id, url, dest_path)
 
-
-if __name__ == "__main__":
-    if len(sys.argv) > 0 and sys.argv[1] not in ["-h", "--help"]:
-        download(sys.argv[1:], "./")
-    else:
-        printf("""CLI-based downloader written in Python
-\tUsage: python downloader.py [-h --help] URL1 [URL2 URL3 ... etc]
+def print_help_msg():
+    printf("""CLI-based downloader written in Python
+\tUsage: [bold green]python[/] [blue]downloader[/].[green]py[/] [[italic]-h --help[/]] [yellow]URL[/] [[italic]URL2 URL3 ... etc[/]]
 
 Optional Argument:
  [yellow]-h[/], [yellow]--help[/]  |  Prints [purple]help[/] message and [yellow]exits[/]""")
+
+if __name__ == "__main__":
+    if len(sys.argv) >= 2:
+        if sys.argv[1] in ["-h", "--help"]:
+            print_help_msg()
+            download(sys.argv[2:], "./")
+        else:
+            download(sys.argv[1:], "./")
+    else:
+        print_help_msg()
