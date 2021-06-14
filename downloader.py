@@ -42,7 +42,11 @@ def copy_url(task_id: TaskID, url: str, path: str) -> None:
     
     progress.console.log(f"Requesting {url}")
     response = requests.get(url, stream=True)
-    progress.update(task_id, total=int(len(response.content)))
+    meta = requests.head(url)
+    if "Content-Length" in meta.headers:
+        progress.update(task_id, total=int(meta.headers["Content-Length"]))
+    else:
+        progress.update(task_id, total=int(len(response.content)))
     with open(path, "wb") as dest_file:
         progress.start_task(task_id)
         for data in response.iter_content(32768):
@@ -60,7 +64,7 @@ def download(urls: Iterable[str], dest_dir: str):
         with ThreadPoolExecutor(max_workers=4) as pool:
             for url in urls:
                 filename = url.split("/")[-1]
-                response = requests.get(url)
+                response = requests.head(url)
                 contenttype = response.headers['Content-Type'].split(';')[0]
                 if contenttype == "text/plain":
                     filename += '.txt'
