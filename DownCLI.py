@@ -81,16 +81,20 @@ def print_help_msg():
     """Prints help message"""
     
     printf("""CLI-based downloader written in Python
-\tUsage: [bold green]python[/] [blue]downloader[/].[green]py[/] [[italic]-h --help[/]] [yellow]URL[/] [[italic]URL2 URL3 ... etc[/]]
+\tUsage: [bold green]python[/] [blue]downloader[/].[green]py[/] [[italic]-h, --help[/]] [[italic]-d, --directory[/] [bold purple]DIRECTORY[/]] [yellow]URL[/] [[italic purple]URL2 URL3 ... etc[/]]
 
 Optional Argument:
- [yellow]-h[/], [yellow]--help[/]  |  Prints [purple]help[/] message and [yellow]exits[/]""")
+ [yellow]-h[/], [yellow]--help[/]                |  Prints [purple]help[/] message and [yellow]exits[/]
+ [yellow]-d[/], [yellow]--directory[/] [bold italic]DIRECTORY[/] |  Downloads files in [purple]DIRECTORY[/] instead of default [yellow]./[/]
+ """)
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         if sys.argv[1] in ["-h", "--help"]:
             print_help_msg()
             download(sys.argv[2:], "./")
+        elif sys.argv[1] in ["-d", "--directory"]:
+            download(sys.argv[3:], sys.argv[2])
         else:
             download(sys.argv[1:], "./")
     else:
