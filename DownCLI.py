@@ -81,7 +81,7 @@ def print_help_msg():
     """Prints help message"""
     
     printf("""CLI-based downloader written in Python
-\tUsage: [bold green]python[/] [blue]downloader[/].[green]py[/] [[italic]-h, --help[/]] [[italic]-d, --directory[/] [bold purple]DIRECTORY[/]] [yellow]URL[/] [[italic purple]URL2 URL3 ... etc[/]]
+\tUsage: [bold green]python[/] [blue]py-get[/].[green]py[/] [[italic]-h, --help[/]] [[italic]-d, --directory[/] [bold purple]DIRECTORY[/]] [yellow]URL[/] [[italic purple]URL2 URL3 ... etc[/]]
 
 Optional Argument:
  [yellow]-h[/], [yellow]--help[/]                |  Prints [purple]help[/] message and [yellow]exits[/]
